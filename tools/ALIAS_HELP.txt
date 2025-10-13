@@ -1,0 +1,79 @@
+# ------------------------------------------------------------------------------------------------------------------------------ #
+# 🚀  CUSTOM ALIAS HELP — DEVELOPMENT ENVIRONMENT                                                                              #
+# ------------------------------------------------------------------------------------------------------------------------------ #
+
+
+# ------------------------------------------------------------------------------------------------------------------------------ #
+# 📋  SYSTEM ALIASES                                                                                                            #
+# ------------------------------------------------------------------------------------------------------------------------------ #
+
+  sys_perms              - Show file permissions in octal format for current dir
+  sys_killport           - Kill process using a specific TCP port
+  sys_bash_edit          - Edit .bashrc with nano and reload it
+  sys_bash_reload        - Reload .bashrc configuration
+  help_aliases           - Show this help documentation
+
+
+# ------------------------------------------------------------------------------------------------------------------------------ #
+# 🔧  GIT WORKFLOW ALIASES                                                                                                      #
+# ------------------------------------------------------------------------------------------------------------------------------ #
+
+  g_push                 - Stage, commit and push changes to origin
+  g_branch_new           - Create and push new branch to remote origin
+  g_rebase               - Interactive rebase current branch from master/master-stage/main/custom
+  g_reset                - 🚨 DESTRUCTIVE: Clean reset, always asks which branch (master/master-stage/QA-MSC-AX/main/custom name)
+
+
+# ------------------------------------------------------------------------------------------------------------------------------ #
+# 🐍  DJANGO ALIASES                                                                                                            #
+# ------------------------------------------------------------------------------------------------------------------------------ #
+
+  dj                     - Shortcut for "python manage.py"
+  dj_missing_migrations  - Show pending Django migrations
+
+
+# ------------------------------------------------------------------------------------------------------------------------------ #
+# �️   PROJECT ALIASES                                                                                                         #
+# ------------------------------------------------------------------------------------------------------------------------------ #
+
+  # Xentro
+  open_xentro_nac        - Navigate to Xentro NAC project and activate venv
+  open_xentro_llc        - Navigate to Xentro LLC project and activate venv
+  run_xentro_nac         - Run Xentro NAC development server
+  run_xentro_llc         - Run Xentro LLC development server (port 8080)
+
+  # Fenrir
+  open_fenrir            - Navigate to Fenrir project directory
+  run_fenrir             - Run Fenrir development server (npm run dev)
+
+  # MRP
+  open_mrp               - Navigate to MRP project directory
+  run_mrp                - Restart MRP Docker containers (down/build/up)
+
+  # CRM
+  open_crm               - Navigate to CRM project directory
+  run_crm                - Restart CRM Docker containers (down/build/up)
+
+
+# ------------------------------------------------------------------------------------------------------------------------------ #
+# 💡  USAGE TIPS                                                                                                                #
+# ------------------------------------------------------------------------------------------------------------------------------ #
+
+  - Use 'help_aliases' anytime to see this help
+  - Git workflow for new branches: g_branch_new -> g_push -> (open the PR manually)
+  - Use g_rebase to bring your branch up to date before merging
+  - Docker aliases (run_mrp, run_crm) will rebuild and recreate containers
+  - All paths are dynamically set based on your user home directory
+
+
+# ------------------------------------------------------------------------------------------------------------------------------ #
+# ⚠️   DESTRUCTIVE COMMANDS WARNING                                                                                             #
+# ------------------------------------------------------------------------------------------------------------------------------ #
+
+  - g_reset will DELETE ALL local branches except the one you reset to
+  - It always asks which branch via its own menu (master/master-stage/QA-MSC-AX/main/custom name) —
+    the branch is never passed in from outside, so there's only one place to pick it
+  - Includes a safety confirmation prompt
+  - Use with extreme caution — backup important work first!
+
+# ------------------------------------------------------------------------------------------------------------------------------ #
