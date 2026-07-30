@@ -217,6 +217,9 @@ alias sys_bash_edit="sudo nano ~/.bashrc && source ~/.bashrc"
 alias sys_bash_reload="source ~/.bashrc"
 alias help_aliases="cat ${TARGET_HOME}/tools/ALIAS_HELP.txt"
 
+# Docker
+alias docker_ps="${TARGET_HOME}/tools/scripts/docker_ps.sh"
+
 # Git
 alias g_push="${TARGET_HOME}/tools/scripts/git_push.sh"
 alias g_branch_new="${TARGET_HOME}/tools/scripts/git_create_new_remote_branch.sh"

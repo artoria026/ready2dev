@@ -49,10 +49,14 @@ section_separator() {
 select_mode() {
     echo -e "${MAGENTA}📋 SECTION 0: What do you want to do?${RESET}"
     echo
-    echo -e "  ${CYAN}1)${RESET} Instalación completa ${GREEN}(SO limpio — recomendado la primera vez)${RESET}"
-    echo -e "  ${CYAN}2)${RESET} Instalar solo aliases y tools ${YELLOW}(el SO ya está listo)${RESET}"
-    echo -e "  ${CYAN}3)${RESET} Actualizar aliases y tools ${YELLOW}(ya instalado, solo refrescar)${RESET}"
-    echo -e "  ${CYAN}4)${RESET} Salir"
+    echo -e "  ${DIM}── Instalación ──────────────────────────────────────────${RESET}"
+    echo -e "   ${CYAN}1)${RESET} Instalación completa ${GREEN}(SO limpio — recomendado la primera vez)${RESET}"
+    echo -e "   ${CYAN}2)${RESET} Instalar solo aliases y tools ${YELLOW}(el SO ya está listo)${RESET}"
+    echo
+    echo -e "  ${DIM}── Mantenimiento ─────────────────────────────────────────${RESET}"
+    echo -e "   ${CYAN}3)${RESET} Actualizar aliases y tools ${YELLOW}(ya instalado, solo refrescar)${RESET}"
+    echo
+    echo -e "   ${CYAN}4)${RESET} Salir"
     echo
 
     read -rp "$(echo -e "${YELLOW}👉 Elige una opción [1-4]: ${RESET}")" MODE_CHOICE
