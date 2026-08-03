@@ -75,10 +75,13 @@ user_selection() {
 # so scripts renamed/removed upstream don't linger on the target).
 deploy_tool_scripts() {
     echo -e "${MAGENTA}🛠️  Deploying tool scripts...${RESET}"
+    echo -e "${BLUE}📍 Installation root: ${TARGET_HOME}/.local/share/ready2dev${RESET}"
+    echo
 
-    TOOLS_DIR="${TARGET_HOME}/tools/scripts"
+    local READY2DEV_INSTALL_ROOT="${TARGET_HOME}/.local/share/ready2dev"
+    TOOLS_DIR="${READY2DEV_INSTALL_ROOT}/tools/scripts"
 
-    echo -e "${YELLOW}🗑️  Removing everything currently in ${TOOLS_DIR}...${RESET}"
+    echo -e "${YELLOW}🗑️  Removing any existing deployment in ${TOOLS_DIR}...${RESET}"
     sudo rm -rf "${TOOLS_DIR:?}"
     echo
 
@@ -88,7 +91,7 @@ deploy_tool_scripts() {
 
     echo -e "${YELLOW}📋 Copying tool scripts and documentation...${RESET}"
     sudo cp -r "$REPO_ROOT/tools/scripts/"* "$TOOLS_DIR/"
-    sudo cp "$REPO_ROOT/tools/ALIAS_HELP.txt" "${TARGET_HOME}/tools/"
+    sudo cp "$REPO_ROOT/tools/ALIAS_HELP.txt" "${READY2DEV_INSTALL_ROOT}/"
     echo
 
     echo -e "${YELLOW}🔐 Setting execution permissions for scripts...${RESET}"
@@ -96,11 +99,11 @@ deploy_tool_scripts() {
     echo
 
     echo -e "${YELLOW}👤 Setting file ownership to user ${TARGET_USER}...${RESET}"
-    sudo chown -R "$TARGET_USER":"$TARGET_USER" "${TARGET_HOME}/tools"
+    sudo chown -R "$TARGET_USER":"$TARGET_USER" "${READY2DEV_INSTALL_ROOT}"
     echo
 
-    echo -e "${YELLOW}📋 Copying db_restore tool to ${TARGET_HOME}/tools/db_restore/...${RESET}"
-    DB_RESTORE_DEST="${TARGET_HOME}/tools/db_restore"
+    echo -e "${YELLOW}📋 Copying db_restore tool to ${READY2DEV_INSTALL_ROOT}/tools/db_restore/...${RESET}"
+    DB_RESTORE_DEST="${READY2DEV_INSTALL_ROOT}/tools/db_restore"
     DB_RESTORE_SRC="$REPO_ROOT/tools/db_restore"
     sudo mkdir -p "$DB_RESTORE_DEST"
     # Remove everything currently there except .env (real credentials live
@@ -122,7 +125,8 @@ deploy_tool_scripts() {
 # mode="update"  -> asks confirmation first, keeps existing .env if declined
 configure_db_restore_credentials() {
     local mode="${1:-install}"
-    local DB_ENV_FILE="${TARGET_HOME}/tools/db_restore/.env"
+    local READY2DEV_INSTALL_ROOT="${TARGET_HOME}/.local/share/ready2dev"
+    local DB_ENV_FILE="${READY2DEV_INSTALL_ROOT}/tools/db_restore/.env"
 
     echo -e "${MAGENTA}🗄️  MySQL Credentials for db_restore${RESET}"
 
@@ -166,7 +170,10 @@ ENVEOF
 # SECTION: Alias block in ~/.bashrc (single source of truth)
 write_alias_block() {
     echo -e "${MAGENTA}⚙️  Refreshing alias block in ~/.bashrc...${RESET}"
+    echo -e "${BLUE}🔁 Updating aliases to use: ${TARGET_HOME}/.local/share/ready2dev${RESET}"
+    echo
 
+    local READY2DEV_INSTALL_ROOT="${TARGET_HOME}/.local/share/ready2dev"
     BASHRC="${TARGET_HOME}/.bashrc"
     BACKUP="${BASHRC}.$(date +%Y%m%d_%H%M%S).bak"
 
@@ -215,16 +222,16 @@ alias sys_perms="stat -c '%a %n' *"
 alias sys_killport="fuser -n tcp -k"
 alias sys_bash_edit="sudo nano ~/.bashrc && source ~/.bashrc"
 alias sys_bash_reload="source ~/.bashrc"
-alias help_aliases="cat ${TARGET_HOME}/tools/ALIAS_HELP.txt"
+alias help_aliases="cat ${READY2DEV_INSTALL_ROOT}/ALIAS_HELP.txt"
 
 # Docker
-alias docker_ps="${TARGET_HOME}/tools/scripts/docker_ps.sh"
+alias docker_ps="${READY2DEV_INSTALL_ROOT}/tools/scripts/docker_ps.sh"
 
 # Git
-alias g_push="${TARGET_HOME}/tools/scripts/git_push.sh"
-alias g_branch_new="${TARGET_HOME}/tools/scripts/git_create_new_remote_branch.sh"
-alias g_rebase="${TARGET_HOME}/tools/scripts/git_interactive_rebase.sh"
-alias g_reset="${TARGET_HOME}/tools/scripts/git_reset_to.sh"
+alias g_push="${READY2DEV_INSTALL_ROOT}/tools/scripts/git_push.sh"
+alias g_branch_new="${READY2DEV_INSTALL_ROOT}/tools/scripts/git_create_new_remote_branch.sh"
+alias g_rebase="${READY2DEV_INSTALL_ROOT}/tools/scripts/git_interactive_rebase.sh"
+alias g_reset="${READY2DEV_INSTALL_ROOT}/tools/scripts/git_reset_to.sh"
 
 # Django
 alias dj="${PYTHON_CMD} manage.py"
@@ -249,7 +256,7 @@ alias open_crm="cd ${TARGET_HOME}/projects/webapps/crm"
 alias run_crm="clear && cd ${TARGET_HOME}/projects/webapps/crm && sudo docker compose -f docker-compose.local.yml -p crm down && sudo docker compose -f docker-compose.local.yml -p crm build && sudo docker compose -f docker-compose.local.yml -p crm up -d --force-recreate && sudo docker compose -f docker-compose.local.yml -p crm ps"
 
 # Database Restore
-alias db_restore="${TARGET_HOME}/tools/db_restore/restore_db.sh"
+alias db_restore="${READY2DEV_INSTALL_ROOT}/tools/db_restore/restore_db.sh"
 $BLOCK_END
 EOF
 
